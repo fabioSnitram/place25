@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #d4d4d4;
+    font-family: "Minecraft", sans-serif;
+}
+
+/* Fonte Minecraft */
+@font-face {
+    font-family: 'Minecraft';
+    src: url('Minecraft.ttf') format('truetype');     
+}
+
+/* Cabeçalho */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+    background-color: #bbb;
+    width: 100%;
+}
+
+/* Título */
+h1 {
+    font-size: 3rem;
+    color: #000;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Espaço para o seletor de cores */
+.color-picker {
+    margin-left: 10px;
+}
+
+/* Área do Canvas */
+.canvas {
+    display: grid;
+    width: 1500px;
+    height: 400px; 
+    grid-template-columns: repeat(300, 5px); /* 1500px / 5px = 300 colunas */
+    grid-template-rows: repeat(80, 5px); 
+    background-color: white;
+    border: 2px solid #888; /* Apenas para destacar os limites */
+    overflow: hidden;
+}
+
+/* Cada pixel */
+.pixel {
+    width: 5px;
+    height: 5px;
+    background: white;
+    cursor: pointer;
+}

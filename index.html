@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">   
+	<link rel="stylesheet" href="styllus.css" type="text/css">
+	<title>Pixel Art Canvas</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Pixel Art Canvas</h1>
+        <label>Pick Color:</label>
+        <input type="color" id="colorPicker" class="color-picker" value="#000000">
+    </div>
+    
+    <div class="canvas" id="canvas"></div>
+    
+    <script>
+		const canvas = document.getElementById("canvas");
+		const colorPicker = document.getElementById("colorPicker");
+		const screenWidth = window.innerWidth;
+		const screenHeight = window.innerHeight - 50;
+		const pixelSize = 5;
+		const cols = Math.floor(screenWidth / pixelSize);
+		const rows = Math.floor(screenHeight / pixelSize);
+		const gridSize = cols * rows;
+		
+		// Função para salvar um pixel no banco de dados
+		function salvarPixel(posicao, cor) {
+			fetch('save_pixels.php', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: `posicao=${posicao}&cor=${encodeURIComponent(cor)}`
+			});
+		}
+		
+		// Função para carregar pixels salvos
+		function carregarPixels() {
+			fetch('load_pixels.php')
+				.then(response => response.json())
+				.then(data => {
+					data.forEach(pixelData => {
+						let pixel = document.querySelector(`[data-index="${pixelData.posicao}"]`);
+						if (pixel) pixel.style.background = pixelData.cor;
+					});
+				});
+		}
+		
+		// Criar os pixels
+		for (let i = 0; i < gridSize; i++) {
+			let pixel = document.createElement("div");
+			pixel.classList.add("pixel");
+			pixel.dataset.index = i;
+		
+			pixel.addEventListener("click", function () {
+				pixel.style.background = colorPicker.value;
+				salvarPixel(i, colorPicker.value);
+			});
+		
+			canvas.appendChild(pixel);
+		}
+		
+		// Carregar pixels ao iniciar
+		carregarPixels();
+
+    </script>
+</body>
+</html>
+      
