@@ -3,7 +3,7 @@ Copy from r/place, reddit's pixel art community board.
 
 I enjoyed participating so much that I wanted to understand it better and ended up making a similar one, very simple and summarized. But I found it really fun to create this.
 
-# Create table
+# Create table (databese name: pixelart)
 CREATE DATABASE pixelart;
 USE pixelart;
 
